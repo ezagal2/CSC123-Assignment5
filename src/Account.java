@@ -21,27 +21,26 @@ public class Account {
         this.overdraftLimit = overdraftLimit;
         accountOpen=true;
     }
-    public void withdraw(double amount) throws AccountClosedException, InsufficientBalanceException {
-        if (!isOpen() && balance <= 0) {
+    public void withdraw(double amount) throws AccountClosedException, InsufficientBalanceException, LessThanZeroException {
+        if (amount <= 0) throw new LessThanZeroException("Error: amount cannot be zero or less");
+        else if (!isOpen() && balance <= 0) {
             throw new AccountClosedException("Cannot withdraw amount, you have no money left in the account");
-        } else if ((isOpen() && ((type.equals("Savings") && balance < amount) || balance - amount < overdraftLimit * -1)) || amount < 0) {
+        } else if ((isOpen() && ((type.equals("Savings") && balance < amount) || balance - amount < overdraftLimit * -1))) {
             throw new InsufficientBalanceException(String.format("not enough funds to make a withdrawal, the balance is: %.2f\n", balance));
         } else {
             balance -= amount;
             transaction = String.format("%d : Debit : -%.2f", transactionId++, amount);
             transactions.add(transaction);
-            System.out.printf("Withdrawal successful, the balance is: %.2f\n", balance);
         }
     }
 
-    public void deposit(double amount) throws AccountClosedException {
-        if(amount<0) System.out.printf("Deposit failed, the balance is: %.2f\n", balance);
+    public void deposit(double amount) throws AccountClosedException, LessThanZeroException {
+        if(amount<=0) throw new LessThanZeroException("Error: amount cannot be zero or less");
         else if (!isOpen() && balance+amount > 0) throw new AccountClosedException("Error Cannot deposit, Account Closed");
         else {
             this.balance = this.balance + amount;
             transaction = String.format("%d : Credit : +%.2f", transactionId++, amount);
             transactions.add(transaction);
-            System.out.printf("Deposit successful, the new balance is: %.2f\n", balance);
         }
 
     }
@@ -50,14 +49,21 @@ public class Account {
     }
     public void closeAccount() {
         this.accountOpen=false;
-        System.out.printf("Account closed, current balance is %.2f, deposits are no longer possible\n", balance);
     }
     public int getAccountNumber(){ return accountNumber;}
-    public void printStatement(){
+    public String printStatement(){
+        String str = "";
         for (String s : transactions) {
-            System.out.println(s);
+            str += s + "\n";
         }
-        System.out.printf("Balance: %.2f\n\n", balance);
+        str += String.format("Balance: %.2f\n\n", balance);
+        return str;
+    }
+    public String getTransactions(){
+        String t = "-----------------------------------\n";
+        t += accountHolder.toString() + "\n";
+        t += printStatement();
+        return t;
     }
     public String toString() {
         String str = String.format("%d", accountNumber) + "(";
@@ -66,5 +72,9 @@ public class Account {
         str += String.format("%.2f", balance) + " : ";
         str += isOpen() ? "Account Open" : "Account Closed";
         return str;
+    }
+
+    public double getBalance() {
+        return balance;
     }
 }

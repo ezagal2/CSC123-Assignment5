@@ -10,16 +10,7 @@ public class Person {
         lastName=lName;
         this.SSN=SSN;
     }
-    //Methods
-    public  String getFirstName() {
-        return firstName;
-    }
-    public String getLastName() {
-        return lastName;
-    }
-    public String getSSN() {
-        return SSN;
-    }
+
     @Override
     public String toString() {
         return firstName+" : "+lastName+" : "+SSN;
