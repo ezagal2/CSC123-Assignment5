@@ -84,7 +84,8 @@ public class BankingAppV2 {
         try {
             System.out.print("Enter account number: ");
             accountNum = scan.nextInt();
-            Bank.printStatement(accountNum);
+            try{ Bank.printStatement(accountNum); }
+            catch(NoSuchAccountException e){ System.out.println(e.getMessage());}
         } catch (InputMismatchException e) {
             System.out.println("Invalid input. Please enter a valid integer account number.");
             scan.nextLine();
@@ -99,7 +100,8 @@ public class BankingAppV2 {
         scan.nextLine();
         System.out.print("Enter the amount to deposit: ");
         amount = scan.nextDouble();
-        Bank.deposit(accountNum, amount);
+        try { Bank.deposit(accountNum, amount); }
+        catch (NoSuchAccountException e){ System.out.println(e.getMessage()); }
 
     }
     public static void withdrawFunds(){
@@ -111,13 +113,15 @@ public class BankingAppV2 {
         scan.nextLine();
         System.out.print("Enter the amount to withdraw: ");
         amount = scan.nextDouble();
-        Bank.withdraw(accountNum, amount);
+        try { Bank.withdraw(accountNum, amount); }
+        catch (NoSuchAccountException e){ System.out.println(e.getMessage()); }
     }
     public static void closeAccount(){
         int accountNum;
         scan.nextLine();
         System.out.print("Enter account number to close: ");
         accountNum = scan.nextInt();
-        Bank.closeAccount(accountNum);
+        try{ Bank.closeAccount(accountNum); }
+        catch (NoSuchAccountException e){ System.out.println(e.getMessage()); }
     }
 }

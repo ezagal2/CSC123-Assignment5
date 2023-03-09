@@ -36,9 +36,7 @@ public class Account {
 
     public void deposit(double amount) throws AccountClosedException {
         if(amount<0) System.out.printf("Deposit failed, the balance is: %.2f\n", balance);
-        else if (!isOpen() && balance+amount > 0){
-            throw new AccountClosedException("Error Cannot deposit, Account Closed");
-        }
+        else if (!isOpen() && balance+amount > 0) throw new AccountClosedException("Error Cannot deposit, Account Closed");
         else {
             this.balance = this.balance + amount;
             transaction = String.format("%d : Credit : +%.2f", transactionId++, amount);
