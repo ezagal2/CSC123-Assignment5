@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class BankingAppV2 {
+public class DriverClass {
     static Scanner scan = new Scanner(System.in);
     static File transactions = new File("transactions.txt");
     static FileWriter fileWriter;
