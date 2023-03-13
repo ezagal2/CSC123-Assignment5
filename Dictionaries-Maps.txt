@@ -1,0 +1,46 @@
+a Map data structure is a collection that stores key-value pairs. It allows you to associate values with keys, and then look up values by their corresponding keys. Think of it like a dictionary or a phone book, where the names (keys) are associated with phone numbers (values). You can look up a person's phone number by searching for their name in the dictionary, just like how you can look up a value in a Map by searching for its corresponding key. The Map is a way to store and manage data using keys to find them quickly. It's used in many computer programs and can be created in different types, such as HashMap, TreeMap, or LinkedHashMap.
+
+
+HashMap:
+* Unordered, hash-based collection
+* Allows null keys and values
+* Constant-time performance for most operations
+* Fastest option for small to medium-sized collections
+* Performance can degrade when the map becomes very large or has many collisions
+
+
+TreeMap:
+* Sorted, tree-based collection
+* Maintains keys in sorted order
+* Does not allow null keys
+* Log-time performance for most operations
+* Good choice when maintaining a sorted order of the keys is important
+
+
+LinkedHashMap:
+* Ordered, hash-based collection
+* Maintains insertion order
+* Allows null keys and values
+* Slightly slower than HashMap due to the additional overhead of maintaining order
+
+
+ConcurrentHashMap:
+* Concurrent, hash-based collection
+* Optimized for concurrent access
+* Provides higher performance than other Maps in multi-threaded environments
+* Allows null keys and values
+
+
+1. put(key, value): Associates the specified value with the specified key in the map. If the map previously contained a mapping for the key, the old value is replaced.
+
+
+2. get(key): Returns the value to which the specified key is mapped, or null if the map contains no mapping for the key.
+
+
+3. containsKey(key): Returns true if the map contains a mapping for the specified key.
+
+
+4. keySet(): Returns a Set view of the keys contained in the map.
+
+
+5. entrySet(): Returns a Set view of the mappings contained in the map.
